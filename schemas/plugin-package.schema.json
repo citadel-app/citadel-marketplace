@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citadel Plugin Package",
+  "description": "Schema for validating plugin package.json files in the Citadel Marketplace.",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "description",
+    "author",
+    "repository",
+    "engines",
+    "citadel"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique plugin identifier (e.g., citadel-plugin-my-tool)."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "Semver version string (e.g., 1.0.0)."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "A meaningful description of the plugin (min 10 chars)."
+    },
+    "author": {
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "email": { "type": "string" },
+            "url": { "type": "string" }
+          }
+        }
+      ],
+      "description": "Author as a string or an object with at least a name."
+    },
+    "license": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "object",
+      "required": ["type", "url"],
+      "properties": {
+        "type": { "type": "string" },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "Must be a valid HTTP(S) URL to the source repository."
+        }
+      }
+    },
+    "engines": {
+      "type": "object",
+      "required": ["citadel"],
+      "properties": {
+        "citadel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Semver range for Citadel app compatibility (e.g., >=1.0.0)."
+        }
+      }
+    },
+    "citadel": {
+      "type": "object",
+      "required": ["title", "icon", "bundleUrl"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable display name for the marketplace."
+        },
+        "icon": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relative path to the plugin icon (e.g., assets/icon.png)."
+        },
+        "bundleUrl": {
+          "type": "string",
+          "pattern": "^https?://",
+          "description": "Direct download URL to the pre-bundled plugin artifact."
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

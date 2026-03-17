@@ -1,0 +1,19 @@
+{
+  "name": "citadel-plugin-example",
+  "version": "1.0.0",
+  "description": "An example plugin metadata registration for the Citadel Marketplace.",
+  "author": "Citadel Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/your-plugin-repo"
+  },
+  "engines": {
+    "citadel": ">=1.0.0"
+  },
+  "citadel": {
+    "title": "Example Plugin",
+    "icon": "assets/icon.png",
+    "bundleUrl": "https://github.com/your-username/your-plugin-repo/releases/latest/download/plugin.zip"
+  }
+}

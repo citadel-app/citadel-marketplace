@@ -1,0 +1,36 @@
+# Citadel Marketplace
+
+The central plugin registry for the Citadel application. This repository stores **metadata only** — plugin source code lives in each builder's own repository. The Citadel app reads this registry to populate the marketplace and install pre-bundled plugins at runtime.
+
+## How to Submit a New Plugin
+
+1. **Fork this repository**.
+2. **Copy** `plugins/.template/` to `plugins/<your-plugin-id>/`.
+3. **Configure your files**:
+
+| File | What to do |
+| :--- | :--- |
+| `package.json` | Set `name`, `version`, `author`, `description`, `repository.url`. Set `engines.citadel` to the minimum compatible Citadel version (semver range). Configure the `citadel` object with `title`, `icon`, and `bundleUrl`. |
+| `versions.json` | Add an entry for each published version with `bundleUrl`, `releasedAt`, `changelog`, and `citadelVersionRange`. Update `latest` to match the newest version. |
+| `assets/` | Add your plugin icon (`icon.png`, recommended 256x256). |
+| `README.md` | Document your plugin's features and usage. |
+
+4. **Update the Plugins Table** below (keep it alphabetical).
+5. **Submit a Pull Request**.
+
+### Publishing a New Version
+
+When releasing a new version of an existing plugin:
+1. Add a new entry to `versions.json` with the version key, `bundleUrl`, `changelog`, `releasedAt`, and `citadelVersionRange`.
+2. Update `versions.json` → `latest` to the new version string.
+3. Update `package.json` → `version` and `engines.citadel` to match the latest release.
+4. Submit a PR.
+
+---
+
+## Available Plugins
+
+| Plugin Name | ID | Author | Description | Version |
+| :--- | :--- | :--- | :--- | :--- |
+| **[Example Plugin](./plugins/.template)** | `citadel-plugin-example` | Citadel Team | An example plugin metadata registration. | `1.0.0` |
+

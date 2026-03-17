@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citadel Plugin Versions",
+  "description": "Schema for validating plugin versions.json files in the Citadel Marketplace.",
+  "type": "object",
+  "required": ["latest", "versions"],
+  "properties": {
+    "latest": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "The latest published version string."
+    },
+    "versions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["bundleUrl", "releasedAt", "changelog", "citadelVersionRange"],
+        "properties": {
+          "bundleUrl": {
+            "type": "string",
+            "pattern": "^https?://",
+            "description": "Direct download URL for this version's bundle."
+          },
+          "releasedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 release timestamp."
+          },
+          "changelog": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Brief description of changes in this version."
+          },
+          "citadelVersionRange": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Semver range for Citadel compatibility (e.g., >=1.0.0)."
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
