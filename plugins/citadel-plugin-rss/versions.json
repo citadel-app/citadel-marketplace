@@ -1,0 +1,11 @@
+{
+  "latest": "1.0.0",
+  "versions": {
+    "1.0.0": {
+      "bundleUrl": "https://github.com/citadel-app/@citadel-app/rss/releases/download/v1.0.0/@citadel-app/rss.zip",
+      "releasedAt": "2026-03-24T22:20:54.699Z",
+      "changelog": "Release v1.0.0",
+      "citadelVersionRange": ">=1.0.0"
+    }
+  }
+}
