@@ -14,6 +14,19 @@
   "citadel": {
     "title": "RSS Reader",
     "icon": "assets/icon.png",
-    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-rss/releases/latest/download/citadel-plugin-rss.zip"
+    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-rss/releases/latest/download/citadel-plugin-rss.zip",
+    "capabilities": [
+      "getFeedItems",
+      "saveFeedItems",
+      "getFeedStatus",
+      "updateFeedStatus"
+    ],
+    "permissions": [
+      "fs.readFile",
+      "fs.writeFile",
+      "fs.exists",
+      "fs.createDirectory",
+      "app.updateSetting"
+    ]
   }
 }
