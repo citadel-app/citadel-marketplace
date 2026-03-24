@@ -27,3 +27,5 @@ out/
 .serverless/
 .expo/
 .vercel
+.codex/
+.env
