@@ -1,5 +1,5 @@
 {
-  "name": "citadel-plugin-rss",
+  "name": "@citadel-app/rss",
   "version": "1.0.0",
   "description": "Native RSS feed reading and aggregation for Citadel.",
   "author": "Citadel Team",
@@ -13,7 +13,8 @@
   },
   "citadel": {
     "title": "RSS Reader",
-    "icon": "assets/icon.png",
+    "id": "@citadel-app/rss",
+    "icon": "assets/icon.svg",
     "bundleUrl": "https://github.com/citadel-app/citadel-plugin-rss/releases/latest/download/citadel-plugin-rss.zip",
     "capabilities": [
       "getFeedItems",

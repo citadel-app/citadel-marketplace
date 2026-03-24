@@ -1,4 +1,4 @@
-# Citadel RSS Plugin
+# Citadel RSS Reader
 
 The official RSS & YouTube Feed plugin for the Citadel application framework.
 This plugin enables fetching, parsing, and persisting of RSS feeds directly within Citadel workspaces.
