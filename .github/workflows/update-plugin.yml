@@ -30,13 +30,33 @@ jobs:
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
           BUNDLE_URL="${{ github.event.client_payload.bundle_url }}"
+          TITLE="${{ github.event.client_payload.title }}"
+          DESC="${{ github.event.client_payload.description }}"
+          AUTHOR="${{ github.event.client_payload.author }}"
+          REPO_URL="${{ github.event.client_payload.repo_url }}"
+          NAME="${{ github.event.client_payload.name }}"
           
           PKG_PATH="plugins/$PLUGIN_ID/package.json"
           
-          # Use jq to update version and bundleUrl
+          # Use jq to update all fields
           jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" \
-             '.version = $ver | .citadel.bundleUrl = $url' \
+             --arg title "$TITLE" --arg desc "$DESC" \
+             --arg author "$AUTHOR" --arg repo "$REPO_URL" \
+             --arg name "$NAME" \
+             '.name = $name | .version = $ver | .citadel.bundleUrl = $url | .citadel.title = $title | .description = $desc | .author = $author | .repository.url = $repo' \
              "$PKG_PATH" > temp.json && mv temp.json "$PKG_PATH"
+
+      - name: Update README.md
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          TITLE="${{ github.event.client_payload.title }}"
+          DESC="${{ github.event.client_payload.description }}"
+          
+          README_PATH="plugins/$PLUGIN_ID/README.md"
+          
+          # Replace title and description placeholders
+          sed -i "1s/.*/# $TITLE/" "$README_PATH"
+          sed -i "3s/.*/$DESC/" "$README_PATH"
 
       - name: Update versions.json
         run: |
@@ -47,17 +67,36 @@ jobs:
           
           VERSIONS_PATH="plugins/$PLUGIN_ID/versions.json"
           
+          # Initialize versions.json if it doesn't exist
           if [ ! -f "$VERSIONS_PATH" ]; then
-            cp plugins/.template/versions.json "$VERSIONS_PATH"
+            echo '{"latest": "", "versions": {}}' > "$VERSIONS_PATH"
           fi
           
           # Add new version entry and update latest
-          # Note: releasedAt is current date
           RELEASED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           
           jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" \
              '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: ">=1.0.0" } | .latest = $ver' \
              "$VERSIONS_PATH" > temp.json && mv temp.json "$VERSIONS_PATH"
+
+      - name: Update Root README.md
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          TITLE="${{ github.event.client_payload.title }}"
+          AUTHOR="${{ github.event.client_payload.author }}"
+          DESC="${{ github.event.client_payload.description }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          
+          README_PATH="README.md"
+          
+          # Check if plugin already exists in the table
+          if grep -q "\`$PLUGIN_ID\`" "$README_PATH"; then
+            # Update existing row
+            sed -i "/\`$PLUGIN_ID\`/c\| **[$TITLE](./plugins/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
+          else
+            # Append new row to the table
+            echo "| **[$TITLE](./plugins/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" >> "$README_PATH"
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
