@@ -62,7 +62,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CITADEL_RELEASE_TOKEN}}
           commit-message: "Release: ${{ github.event.client_payload.plugin_id }}@${{ github.event.client_payload.version }}"
           branch: "update-${{ github.event.client_payload.plugin_id }}-${{ github.event.client_payload.version }}"
           title: "🚀 [Release] ${{ github.event.client_payload.plugin_id }} v${{ github.event.client_payload.version }}"
