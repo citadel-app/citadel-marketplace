@@ -1,0 +1,77 @@
+name: Update Plugin Metadata
+
+on:
+  repository_dispatch:
+    types: [new-plugin-release]
+
+jobs:
+  update-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Marketplace
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Initialize Plugin Meta
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          if [ ! -d "plugins/$PLUGIN_ID" ]; then
+            echo "New plugin detected. Initializing from template..."
+            cp -r plugins/.template "plugins/$PLUGIN_ID"
+          fi
+
+      - name: Update package.json
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          BUNDLE_URL="${{ github.event.client_payload.bundle_url }}"
+          
+          PKG_PATH="plugins/$PLUGIN_ID/package.json"
+          
+          # Use jq to update version and bundleUrl
+          jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" \
+             '.version = $ver | .citadel.bundleUrl = $url' \
+             "$PKG_PATH" > temp.json && mv temp.json "$PKG_PATH"
+
+      - name: Update versions.json
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          BUNDLE_URL="${{ github.event.client_payload.bundle_url }}"
+          CHANGELOG="${{ github.event.client_payload.changelog }}"
+          
+          VERSIONS_PATH="plugins/$PLUGIN_ID/versions.json"
+          
+          if [ ! -f "$VERSIONS_PATH" ]; then
+            cp plugins/.template/versions.json "$VERSIONS_PATH"
+          fi
+          
+          # Add new version entry and update latest
+          # Note: releasedAt is current date
+          RELEASED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" \
+             '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: ">=1.0.0" } | .latest = $ver' \
+             "$VERSIONS_PATH" > temp.json && mv temp.json "$VERSIONS_PATH"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Release: ${{ github.event.client_payload.plugin_id }}@${{ github.event.client_payload.version }}"
+          branch: "update-${{ github.event.client_payload.plugin_id }}-${{ github.event.client_payload.version }}"
+          title: "🚀 [Release] ${{ github.event.client_payload.plugin_id }} v${{ github.event.client_payload.version }}"
+          body: |
+            This is an automated PR from the plugin CI.
+            
+            - **Plugin**: `${{ github.event.client_payload.plugin_id }}`
+            - **New Version**: `${{ github.event.client_payload.version }}`
+            - **Bundle URL**: ${{ github.event.client_payload.bundle_url }}
+            
+            Please review the metadata changes and metadata syntax before merging.
+          delete-branch: true
