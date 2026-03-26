@@ -35,7 +35,7 @@
           "citadelVersionRange": {
             "type": "string",
             "minLength": 1,
-            "description": "Semver range for Citadel compatibility (e.g., >=1.0.0)."
+            "description": "Semver range for Citadel compatibility (e.g., >=1.0.1)."
           }
         }
       }

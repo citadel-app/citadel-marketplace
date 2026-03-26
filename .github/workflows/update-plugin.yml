@@ -56,7 +56,7 @@ jobs:
           RELEASED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           
           jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" \
-             '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: ">=1.0.0" } | .latest = $ver' \
+             '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: ">=1.0.1" } | .latest = $ver' \
              "$VERSIONS_PATH" > temp.json && mv temp.json "$VERSIONS_PATH"
 
       - name: Create Pull Request

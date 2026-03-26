@@ -1,6 +1,6 @@
 {
   "name": "citadel-plugin-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An example plugin metadata registration for the Citadel Marketplace.",
   "author": "Citadel Team",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "url": "https://github.com/your-username/your-plugin-repo"
   },
   "engines": {
-    "citadel": ">=1.0.0"
+    "citadel": ">=1.0.1"
   },
   "citadel": {
     "title": "Example Plugin",
