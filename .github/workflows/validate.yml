@@ -4,7 +4,8 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "plugins/[!.]*/**"
+      - "plugins/**"
+      - "!plugins/.template/**"
 jobs:
   validate:
     name: Validate plugin metadata

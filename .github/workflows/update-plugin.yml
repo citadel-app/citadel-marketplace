@@ -16,6 +16,25 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Cleanup Existing PR
+        env:
+          GH_TOKEN: ${{ secrets.CITADEL_RELEASE_TOKEN }}
+        run: |
+          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          BRANCH="update-${PLUGIN_ID}-${VERSION}"
+          
+          echo "Checking for existing PR on branch $BRANCH..."
+          PR_NUMBER=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Closing existing PR #$PR_NUMBER..."
+            gh pr close "$PR_NUMBER" --delete-branch || true
+          elif git ls-remote --exit-code --heads origin "$BRANCH"; then
+            echo "Branch exists but no open PR. Deleting branch..."
+            git push origin --delete "$BRANCH" || true
+          fi
+
       - name: Initialize Plugin Meta
         run: |
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
