@@ -14,6 +14,8 @@
   "citadel": {
     "title": "Example Plugin",
     "icon": "assets/icon.png",
+    "authorUrl": "https://github.com/citadel-app",
+    "verified": true,
     "bundleUrl": "https://github.com/your-username/your-plugin-repo/releases/latest/download/plugin.zip"
   }
 }
