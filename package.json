@@ -1,6 +1,6 @@
 {
   "name": "citadel-marketplace",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "Central plugin registry for the Citadel application.",
   "scripts": {
