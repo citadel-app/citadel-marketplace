@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Cleanup Existing PR
         env:
@@ -23,10 +23,10 @@ jobs:
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
           BRANCH="update-${PLUGIN_ID}-${VERSION}"
-          
+
           echo "Checking for existing PR on branch $BRANCH..."
           PR_NUMBER=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
-          
+
           if [ -n "$PR_NUMBER" ]; then
             echo "Closing existing PR #$PR_NUMBER..."
             gh pr close "$PR_NUMBER" --delete-branch || true
@@ -39,11 +39,11 @@ jobs:
         run: |
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
-          if [ ! -d "plugins/$PLUGIN_ID" ]; then
+          if [ ! -d "directory/$PLUGIN_ID" ]; then
             echo "New plugin detected. Initializing from template..."
-            cp -r plugins/.template "plugins/$PLUGIN_ID"
+            cp -r .template "directory/$PLUGIN_ID"
             # Remove template's version history so it starts fresh
-            rm "plugins/$PLUGIN_ID/versions.json"
+            rm "directory/$PLUGIN_ID/versions.json"
           fi
 
       - name: Update package.json
@@ -56,9 +56,9 @@ jobs:
           AUTHOR="${{ github.event.client_payload.author }}"
           REPO_URL="${{ github.event.client_payload.repo_url }}"
           NAME="${{ github.event.client_payload.name }}"
-          
-          PKG_PATH="plugins/$PLUGIN_ID/package.json"
-          
+
+          PKG_PATH="directory/$PLUGIN_ID/package.json"
+
           # Use jq to update all fields
           jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" \
              --arg title "$TITLE" --arg desc "$DESC" \
@@ -72,9 +72,9 @@ jobs:
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           TITLE="${{ github.event.client_payload.title }}"
           DESC="${{ github.event.client_payload.description }}"
-          
-          README_PATH="plugins/$PLUGIN_ID/README.md"
-          
+
+          README_PATH="directory/$PLUGIN_ID/README.md"
+
           # Replace title and description placeholders
           sed -i "1s/.*/# $TITLE/" "$README_PATH"
           sed -i "3s/.*/$DESC/" "$README_PATH"
@@ -85,17 +85,17 @@ jobs:
           VERSION="${{ github.event.client_payload.version }}"
           BUNDLE_URL="${{ github.event.client_payload.bundle_url }}"
           CHANGELOG="${{ github.event.client_payload.changelog }}"
-          
-          VERSIONS_PATH="plugins/$PLUGIN_ID/versions.json"
-          
+
+          VERSIONS_PATH="directory/$PLUGIN_ID/versions.json"
+
           # Initialize versions.json if it doesn't exist
           if [ ! -f "$VERSIONS_PATH" ]; then
             echo '{"latest": "", "versions": {}}' > "$VERSIONS_PATH"
           fi
-          
+
           # Add new version entry and update latest
           RELEASED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          
+
           jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" \
              '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: ">=1.0.0" } | .latest = $ver' \
              "$VERSIONS_PATH" > temp.json && mv temp.json "$VERSIONS_PATH"
@@ -107,16 +107,16 @@ jobs:
           AUTHOR="${{ github.event.client_payload.author }}"
           DESC="${{ github.event.client_payload.description }}"
           VERSION="${{ github.event.client_payload.version }}"
-          
+
           README_PATH="README.md"
-          
+
           # Check if plugin already exists in the table
           if grep -q "\`$PLUGIN_ID\`" "$README_PATH"; then
             # Update existing row
-            sed -i "/\`$PLUGIN_ID\`/c\| **[$TITLE](./plugins/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
+            sed -i "/\`$PLUGIN_ID\`/c\| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
           else
             # Append new row to the table
-            echo "| **[$TITLE](./plugins/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" >> "$README_PATH"
+            echo "| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" >> "$README_PATH"
           fi
 
       - name: Create Pull Request
@@ -128,10 +128,10 @@ jobs:
           title: "🚀 [Release] ${{ github.event.client_payload.plugin_id }} v${{ github.event.client_payload.version }}"
           body: |
             This is an automated PR from the plugin CI.
-            
+
             - **Plugin**: `${{ github.event.client_payload.plugin_id }}`
             - **New Version**: `${{ github.event.client_payload.version }}`
             - **Bundle URL**: ${{ github.event.client_payload.bundle_url }}
-            
+
             Please review the metadata changes and metadata syntax before merging.
           delete-branch: true

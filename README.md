@@ -32,5 +32,3 @@ When releasing a new version of an existing plugin:
 
 | Plugin Name | ID | Author | Description | Version |
 | :--- | :--- | :--- | :--- | :--- |
-| **[Example Plugin](./plugins/.template)** | `citadel-plugin-example` | Citadel Team | An example plugin metadata registration. | `1.0.1` |
-
