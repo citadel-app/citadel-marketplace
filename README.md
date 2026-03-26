@@ -34,3 +34,4 @@ When releasing a new version of an existing plugin:
 | :--- | :--- | :--- | :--- | :--- |
 | **[Example Plugin](./plugins/.template)** | `citadel-plugin-example` | Citadel Team | An example plugin metadata registration. | `1.0.1` |
 
+| **[RSS Reader](./plugins/rss)** | `rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.0.1` |
