@@ -2,6 +2,19 @@
 
 The central plugin registry for the Citadel application. This repository stores **metadata only** — plugin source code lives in each builder's own repository. The Citadel app reads this registry to populate the marketplace and install pre-bundled plugins at runtime.
 
+---
+
+## Available Plugins
+
+<!-- PLUGINS_START -->
+| Plugin Name | ID | Author | Description | Version |
+| :--- | :--- | :--- | :--- | :--- |
+| **[RSS Reader](./directory/@citadel-app/rss)** | `@citadel-app/rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.0.6` |
+| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.0.6` |
+<!-- PLUGINS_END -->
+
+---
+
 ## How to Submit a New Plugin
 
 1. **Fork this repository**.
@@ -21,18 +34,8 @@ The central plugin registry for the Citadel application. This repository stores 
 ### Publishing a New Version
 
 When releasing a new version of an existing plugin:
+
 1. Add a new entry to `versions.json` with the version key, `bundleUrl`, `changelog`, `releasedAt`, and `citadelVersionRange`.
 2. Update `versions.json` → `latest` to the new version string.
 3. Update `package.json` → `version` and `engines.citadel` to match the latest release.
 4. Submit a PR.
-
----
-
-## Available Plugins
-
-<!-- PLUGINS_START -->
-| Plugin Name | ID | Author | Description | Version |
-| :--- | :--- | :--- | :--- | :--- |
-| **[RSS Reader](./directory/@citadel-app/rss)** | `@citadel-app/rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.0.6` |
-| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.0.6` |
-<!-- PLUGINS_END -->
