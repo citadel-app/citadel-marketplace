@@ -11,6 +11,13 @@ jobs:
       - name: Checkout Marketplace
         uses: actions/checkout@v4
 
+      - name: Generate Token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -18,7 +25,7 @@ jobs:
 
       - name: Cleanup Existing PR
         env:
-          GH_TOKEN: ${{ secrets.CITADEL_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
@@ -159,7 +166,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.CITADEL_RELEASE_TOKEN}}
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: "Release: ${{ github.event.client_payload.plugin_id }}@${{ github.event.client_payload.version }}"
           branch: "update-${{ github.event.client_payload.plugin_id }}-${{ github.event.client_payload.version }}"
           title: "🚀 [Release] ${{ github.event.client_payload.plugin_id }} v${{ github.event.client_payload.version }}"
