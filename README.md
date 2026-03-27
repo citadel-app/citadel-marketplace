@@ -9,8 +9,6 @@ The central plugin registry for the Citadel application. This repository stores 
 <!-- PLUGINS_START -->
 | Plugin Name | ID | Author | Description | Version |
 | :--- | :--- | :--- | :--- | :--- |
-| **[RSS Reader](./directory/@citadel-app/rss)** | `@citadel-app/rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.1.1` |
-| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.1.1` |
 <!-- PLUGINS_END -->
 
 ---

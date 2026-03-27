@@ -97,10 +97,9 @@ jobs:
         run: |
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
-          BUNDLE_URL="${{ github.event.client_payload.bundle_url }}"
           CHANGELOG="${{ github.event.client_payload.changelog }}"
-          CITADEL_VERSION_RANGE="${{ github.event.client_payload.citadel_version_range || '>=1.1.0' }}"
 
+          PKG_PATH="directory/$PLUGIN_ID/package.json"
           VERSIONS_PATH="directory/$PLUGIN_ID/versions.json"
 
           # Initialize versions.json if it doesn't exist
@@ -108,11 +107,17 @@ jobs:
             echo '{"latest": "", "versions": {}}' > "$VERSIONS_PATH"
           fi
 
+          # Extract the citadel block from the already-updated package.json
+          # This ensures we get permissions, capabilities, bundleUrl, etc.
+          CITADEL_BLOCK=$(jq -c '.citadel // {}' "$PKG_PATH")
+          DESC=$(jq -r '.description // ""' "$PKG_PATH")
+          CVR=$(jq -r '.engines.citadel // ">=1.1.0"' "$PKG_PATH")
+
           # Add new version entry and update latest
           RELEASED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-          jq --arg ver "$VERSION" --arg url "$BUNDLE_URL" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" --arg cvr "$CITADEL_VERSION_RANGE" \
-             '.versions[$ver] = { bundleUrl: $url, releasedAt: $dt, changelog: $ch, citadelVersionRange: $cvr } | .latest = $ver' \
+          jq --arg ver "$VERSION" --argjson citadel "$CITADEL_BLOCK" --arg ch "$CHANGELOG" --arg dt "$RELEASED_AT" --arg desc "$DESC" --arg cvr "$CVR" \
+             '.versions[$ver] = ($citadel + { releasedAt: $dt, changelog: $ch, description: $desc, citadelVersionRange: $cvr }) | .latest = $ver' \
              "$VERSIONS_PATH" > temp.json && mv temp.json "$VERSIONS_PATH"
 
       - name: Update Root README.md
