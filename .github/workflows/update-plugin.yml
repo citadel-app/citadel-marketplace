@@ -41,7 +41,8 @@ jobs:
           VERSION="${{ github.event.client_payload.version }}"
           if [ ! -d "directory/$PLUGIN_ID" ]; then
             echo "New plugin detected. Initializing from template..."
-            cp -r .template "directory/$PLUGIN_ID"
+            mkdir -p "directory/$PLUGIN_ID"
+            cp -r .template/* "directory/$PLUGIN_ID/"
             # Remove template's version history so it starts fresh
             rm "directory/$PLUGIN_ID/versions.json"
           fi
@@ -111,9 +112,10 @@ jobs:
           README_PATH="README.md"
 
           # Check if plugin already exists in the table
-          if grep -q "\`$PLUGIN_ID\`" "$README_PATH"; then
-            # Update existing row
-            sed -i "/\`$PLUGIN_ID\`/c\| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
+          if grep -F -q "`$PLUGIN_ID`" "$README_PATH"; then
+            # Update existing row (escaping / in PLUGIN_ID for sed address)
+            ESCAPED_ID=$(echo "$PLUGIN_ID" | sed 's/\//\\\//g')
+            sed -i "/\`$ESCAPED_ID\`/c\| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
           else
             # Append new row to the table
             echo "| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" >> "$README_PATH"
