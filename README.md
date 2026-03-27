@@ -33,4 +33,5 @@ When releasing a new version of an existing plugin:
 <!-- PLUGINS_START -->
 | Plugin Name | ID | Author | Description | Version |
 | :--- | :--- | :--- | :--- | :--- |
+| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.0.6` |
 <!-- PLUGINS_END -->
