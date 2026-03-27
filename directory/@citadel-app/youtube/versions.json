@@ -1,0 +1,11 @@
+{
+  "latest": "1.0.6",
+  "versions": {
+    "1.0.6": {
+      "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.0.6/citadel-plugin-youtube.zip",
+      "releasedAt": "2026-03-27T01:23:06Z",
+      "changelog": "Automated release from CI",
+      "citadelVersionRange": ">=1.0.0"
+    }
+  }
+}
