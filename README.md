@@ -30,5 +30,7 @@ When releasing a new version of an existing plugin:
 
 ## Available Plugins
 
+<!-- PLUGINS_START -->
 | Plugin Name | ID | Author | Description | Version |
 | :--- | :--- | :--- | :--- | :--- |
+<!-- PLUGINS_END -->

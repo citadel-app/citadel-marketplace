@@ -103,23 +103,58 @@ jobs:
 
       - name: Update Root README.md
         run: |
-          PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
-          TITLE="${{ github.event.client_payload.title }}"
-          AUTHOR="${{ github.event.client_payload.author }}"
-          DESC="${{ github.event.client_payload.description }}"
-          VERSION="${{ github.event.client_payload.version }}"
+          node -e '
+          const fs = require("fs");
+          const path = require("path");
 
-          README_PATH="README.md"
+          function findPackages(dir, results = []) {
+            const list = fs.readdirSync(dir);
+            list.forEach(file => {
+              const fullPath = path.join(dir, file);
+              const stat = fs.statSync(fullPath);
+              if (stat.isDirectory()) {
+                if (file.startsWith(".")) return;
+                findPackages(fullPath, results);
+              } else if (file === "package.json") {
+                results.push(fullPath);
+              }
+            });
+            return results;
+          }
 
-          # Check if plugin already exists in the table
-          if grep -F -q "`$PLUGIN_ID`" "$README_PATH"; then
-            # Update existing row (escaping / in PLUGIN_ID for sed address)
-            ESCAPED_ID=$(echo "$PLUGIN_ID" | sed 's/\//\\\//g')
-            sed -i "/\`$ESCAPED_ID\`/c\| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" "$README_PATH"
-          else
-            # Append new row to the table
-            echo "| **[$TITLE](./directory/$PLUGIN_ID)** | \`$PLUGIN_ID\` | $AUTHOR | $DESC | \`$VERSION\` |" >> "$README_PATH"
-          fi
+          const pkgFiles = findPackages("directory");
+          const plugins = pkgFiles.map(file => {
+            const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+            const relDir = path.dirname(file).replace(/\\/g, "/");
+            return {
+              title: pkg.citadel?.title || pkg.name,
+              id: pkg.name,
+              author: pkg.citadel?.author || (typeof pkg.author === "object" ? pkg.author.name : pkg.author) || "",
+              description: pkg.description || "",
+              version: pkg.version,
+              path: relDir
+            };
+          });
+
+          // Sort alphabetically by title
+          plugins.sort((a, b) => a.title.localeCompare(b.title));
+
+          const tableHeader = "| Plugin Name | ID | Author | Description | Version |\n| :--- | :--- | :--- | :--- | :--- |";
+          const tableRows = plugins.map(p => 
+            `| **[${p.title}](./${p.path})** | \`${p.id}\` | ${p.author} | ${p.description} | \`${p.version}\` |`
+          ).join("\n");
+
+          const table = `${tableHeader}\n${tableRows}`;
+          const readmePath = "README.md";
+          let readme = fs.readFileSync(readmePath, "utf8");
+          
+          const startMarker = "<!-- PLUGINS_START -->";
+          const endMarker = "<!-- PLUGINS_END -->";
+          const regex = new RegExp(`${startMarker}[\\s\\S]*${endMarker}`);
+          
+          const newReadme = readme.replace(regex, `${startMarker}\n${table}\n${endMarker}`);
+          fs.writeFileSync(readmePath, newReadme);
+          '
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
