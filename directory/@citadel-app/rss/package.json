@@ -9,7 +9,7 @@
     "url": "git+https://github.com/citadel-app/citadel-plugin-rss.git"
   },
   "engines": {
-    "citadel": ">=1.0.0"
+    "citadel": ">=1.1.1"
   },
   "citadel": {
     "title": "RSS Reader",
