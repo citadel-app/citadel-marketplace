@@ -1,12 +1,12 @@
 {
   "name": "@citadel-app/youtube",
-  "version": "1.0.6",
+  "version": "1.1.1",
   "description": "YouTube Plugin for Citadel App",
   "author": "Citadel Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/citadel-app/citadel-plugin-youtube.git"
+    "url": "git+https://github.com/citadel-app/citadel-plugin-youtube.git"
   },
   "engines": {
     "citadel": ">=1.0.0"
@@ -16,6 +16,6 @@
     "icon": "assets/icon.png",
     "authorUrl": "https://github.com/citadel-app",
     "verified": true,
-    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.0.6/citadel-plugin-youtube.zip"
+    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.1.1/citadel-plugin-youtube.zip"
   }
 }
