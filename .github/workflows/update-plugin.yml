@@ -65,7 +65,7 @@ jobs:
           DESC="${{ github.event.client_payload.description }}"
           AUTHOR="${{ github.event.client_payload.author }}"
           REPO_URL="${{ github.event.client_payload.repo_url }}"
-          NAME="${{ github.event.client_payload.name }}"
+          NAME="${{ github.event.client_payload.plugin_id }}"
           CITADEL_VERSION_RANGE="${{ github.event.client_payload.citadel_version_range || '>=1.1.0' }}"
           PERMISSIONS='${{ toJson(github.event.client_payload.permissions) }}'
           CAPABILITIES='${{ toJson(github.event.client_payload.capabilities) }}'
@@ -97,7 +97,7 @@ jobs:
         run: |
           PLUGIN_ID="${{ github.event.client_payload.plugin_id }}"
           VERSION="${{ github.event.client_payload.version }}"
-          CHANGELOG="${{ github.event.client_payload.changelog }}"
+          CHANGELOG="Automated release from CI"
 
           PKG_PATH="directory/$PLUGIN_ID/package.json"
           VERSIONS_PATH="directory/$PLUGIN_ID/versions.json"
