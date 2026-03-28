@@ -24,26 +24,44 @@ addFormats(ajv);
 const validatePackage = ajv.compile(packageSchema);
 const validateVersions = ajv.compile(versionsSchema);
 
-// ── Discover plugin directories ─────────────────────────────
-const pluginsDir = path.resolve(__dirname, "../plugins");
-const pluginDirs = fs
-  .readdirSync(pluginsDir, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && d.name !== "template");
+// ── Discover plugin directories (supports scoped packages) ──
+const directoryRoot = path.resolve(__dirname, "../directory");
+
+function findPluginDirs(dir, results = []) {
+  if (!fs.existsSync(dir)) return results;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory() || entry.name === "template") continue;
+    const fullPath = path.join(dir, entry.name);
+    // If this directory has a package.json, it's a plugin
+    if (fs.existsSync(path.join(fullPath, "package.json"))) {
+      results.push({
+        name: path.relative(directoryRoot, fullPath).replace(/\\/g, "/"),
+        path: fullPath,
+      });
+    } else {
+      // Otherwise, recurse (handles scoped directories like @citadel-app/)
+      findPluginDirs(fullPath, results);
+    }
+  }
+  return results;
+}
+
+const pluginDirs = findPluginDirs(directoryRoot);
 
 if (pluginDirs.length === 0) {
-  console.log("ℹ  No plugin directories found (excluding template). Nothing to validate.");
+  console.log("ℹ  No plugin directories found. Nothing to validate.");
   process.exit(0);
 }
 
 // ── Validate each plugin ────────────────────────────────────
 let hasErrors = false;
 
-for (const dir of pluginDirs) {
-  const pluginPath = path.join(pluginsDir, dir.name);
-  const pkgPath = path.join(pluginPath, "package.json");
-  const versPath = path.join(pluginPath, "versions.json");
+for (const plugin of pluginDirs) {
+  const pkgPath = path.join(plugin.path, "package.json");
+  const versPath = path.join(plugin.path, "versions.json");
 
-  console.log(`\n── Validating: plugins/${dir.name}`);
+  console.log(`\n── Validating: ${plugin.name}`);
 
   // ── package.json ──
   if (!fs.existsSync(pkgPath)) {

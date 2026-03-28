@@ -16,7 +16,7 @@
     "name": {
       "type": "string",
       "minLength": 1,
-      "description": "Unique plugin identifier (e.g., citadel-plugin-my-tool)."
+      "description": "Unique plugin identifier (e.g., @citadel-app/rss)."
     },
     "version": {
       "type": "string",
@@ -87,8 +87,19 @@
           "type": "string",
           "pattern": "^https?://",
           "description": "Direct download URL to the pre-bundled plugin artifact."
+        },
+        "permissions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of IPC permissions the plugin requires (e.g., net.fetch, db.getFeedItems)."
+        },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of capabilities the plugin provides (e.g., sidebar, route, feed-provider)."
         }
-      }
+      },
+      "additionalProperties": true
     }
   },
   "additionalProperties": true

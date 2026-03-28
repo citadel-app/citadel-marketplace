@@ -15,7 +15,7 @@
       "minProperties": 1,
       "additionalProperties": {
         "type": "object",
-        "required": ["bundleUrl", "releasedAt", "changelog", "citadelVersionRange"],
+        "required": ["bundleUrl", "releasedAt"],
         "properties": {
           "bundleUrl": {
             "type": "string",
@@ -29,15 +29,37 @@
           },
           "changelog": {
             "type": "string",
-            "minLength": 1,
             "description": "Brief description of changes in this version."
           },
           "citadelVersionRange": {
             "type": "string",
             "minLength": 1,
             "description": "Semver range for Citadel compatibility (e.g., >=1.0.0)."
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable display name."
+          },
+          "icon": {
+            "type": "string",
+            "description": "Plugin icon path."
+          },
+          "description": {
+            "type": "string",
+            "description": "Plugin description for this version."
+          },
+          "permissions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "IPC permissions required by this version."
+          },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Capabilities provided by this version."
           }
-        }
+        },
+        "additionalProperties": true
       }
     }
   },
