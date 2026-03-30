@@ -9,9 +9,11 @@ The central plugin registry for the Citadel application. This repository stores 
 <!-- PLUGINS_START -->
 | Plugin Name | ID | Author | Description | Version |
 | :--- | :--- | :--- | :--- | :--- |
-| **[RSS Reader](./directory/@citadel-app/rss)** | `@citadel-app/rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.1.5` |
-| **[Whiteboard](./directory/@citadel-app/excalidraw)** | `@citadel-app/excalidraw` | Citadel Team | Whiteboard and diagramming with Excalidraw for Citadel. | `1.1.5` |
-| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.1.5` |
+| **[PDF Viewer](./directory/@citadel-app/pdf)** | `@citadel-app/pdf` | Citadel Team | PDF viewer with highlighting and TTS support for Citadel. | `1.2.1` |
+| **[Code Module](./directory/@citadel-app/code)** | `@citadel-app/code` | Citadel Team | Code editing, LSP, LaTeX compilation, and interactive REPL for Citadel. | `1.2.1` |
+| **[RSS Reader](./directory/@citadel-app/rss)** | `@citadel-app/rss` | Citadel Team | Native RSS feed reading and aggregation for Citadel. | `1.2.1` |
+| **[Whiteboard](./directory/@citadel-app/excalidraw)** | `@citadel-app/excalidraw` | Citadel Team | Whiteboard and diagramming with Excalidraw for Citadel. | `1.2.1` |
+| **[YouTube Scrolls](./directory/@citadel-app/youtube)** | `@citadel-app/youtube` | Citadel Team | YouTube Plugin for Citadel App | `1.2.1` |
 <!-- PLUGINS_END -->
 
 ---

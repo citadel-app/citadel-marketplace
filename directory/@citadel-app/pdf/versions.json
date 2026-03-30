@@ -2,21 +2,21 @@
   "latest": "1.2.1",
   "versions": {
     "1.2.1": {
-      "title": "Whiteboard",
+      "title": "PDF Viewer",
       "icon": "assets/icon.png",
       "authorUrl": "https://github.com/citadel-app",
       "verified": true,
-      "bundleUrl": "https://github.com/citadel-app/citadel-plugin-excalidraw/releases/download/v1.2.1/citadel-plugin-excalidraw.zip",
+      "bundleUrl": "https://github.com/citadel-app/citadel-plugin-pdf/releases/download/v1.2.1/citadel-plugin-pdf.zip",
       "permissions": [
-        "@citadel-app/base:plugins.getPluginPath",
         "@citadel-app/base:fs.readFile",
         "@citadel-app/base:fs.exists",
-        "@citadel-app/base:fs.writeFile"
+        "@citadel-app/base:fs.writeFile",
+        "@citadel-app/base:fs.createDirectory"
       ],
       "capabilities": [],
-      "releasedAt": "2026-03-30T21:27:41Z",
+      "releasedAt": "2026-03-30T21:27:23Z",
       "changelog": "Automated release from CI",
-      "description": "Whiteboard and diagramming with Excalidraw for Citadel.",
+      "description": "PDF viewer with highlighting and TTS support for Citadel.",
       "citadelVersionRange": ">=1.2.1"
     }
   }
