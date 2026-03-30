@@ -1,5 +1,6 @@
 {
   "name": "@citadel-app/code",
+  "version": "1.1.5",
   "version": "1.2.1",
   "description": "Code editing, LSP, LaTeX compilation, and interactive REPL for Citadel.",
   "author": "Citadel Team",
