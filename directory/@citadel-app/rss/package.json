@@ -1,6 +1,6 @@
 {
   "name": "@citadel-app/rss",
-  "version": "1.1.5",
+  "version": "1.2.1",
   "description": "Native RSS feed reading and aggregation for Citadel.",
   "author": "Citadel Team",
   "license": "MIT",
@@ -9,14 +9,14 @@
     "url": "git+https://github.com/citadel-app/citadel-plugin-rss.git"
   },
   "engines": {
-    "citadel": ">=1.1.5"
+    "citadel": ">=1.2.1"
   },
   "citadel": {
     "title": "RSS Reader",
     "icon": "assets/icon.png",
     "authorUrl": "https://github.com/citadel-app",
     "verified": true,
-    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-rss/releases/download/v1.1.5/citadel-plugin-rss.zip",
+    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-rss/releases/download/v1.2.1/citadel-plugin-rss.zip",
     "permissions": [
       "@citadel-app/base:fs.readFile",
       "@citadel-app/base:fs.writeFile",
