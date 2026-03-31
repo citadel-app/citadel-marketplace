@@ -14,8 +14,32 @@
         "@citadel-app/base:fs.writeFile",
         "@citadel-app/base:fs.createDirectory"
       ],
-      "capabilities": [],
-      "releasedAt": "2026-03-30T21:28:42Z",
+      "capabilities": [
+        "latex.check",
+        "latex.compile",
+        "execution.start",
+        "execution.stop",
+        "execution.status",
+        "repl.startSession",
+        "repl.stopSession",
+        "repl.listContainers",
+        "repl.stopContainer",
+        "repl.removeContainer",
+        "repl.checkSession",
+        "repl.sendInput",
+        "code.getLspPort"
+      ],
+      "sidecars": [
+        {
+          "id": "execution-sidecar",
+          "type": "docker"
+        },
+        {
+          "id": "repl-sidecar",
+          "type": "docker"
+        }
+      ],
+      "releasedAt": "2026-03-31T21:38:10Z",
       "changelog": "Automated release from CI",
       "description": "Code editing, LSP, LaTeX compilation, and interactive REPL for Citadel.",
       "citadelVersionRange": ">=1.2.1"
