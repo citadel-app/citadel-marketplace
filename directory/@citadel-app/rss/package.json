@@ -29,6 +29,7 @@
       "@citadel-app/base:db.getFeedStatus",
       "@citadel-app/base:db.updateFeedStatus"
     ],
-    "capabilities": []
+    "capabilities": [],
+    "sidecars": []
   }
 }
