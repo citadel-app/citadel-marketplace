@@ -14,7 +14,8 @@
         "@citadel-app/base:fs.writeFile"
       ],
       "capabilities": [],
-      "releasedAt": "2026-03-30T21:27:41Z",
+      "sidecars": [],
+      "releasedAt": "2026-03-31T21:36:52Z",
       "changelog": "Automated release from CI",
       "description": "Whiteboard and diagramming with Excalidraw for Citadel.",
       "citadelVersionRange": ">=1.2.1"

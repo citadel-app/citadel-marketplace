@@ -23,6 +23,7 @@
       "@citadel-app/base:fs.exists",
       "@citadel-app/base:fs.writeFile"
     ],
-    "capabilities": []
+    "capabilities": [],
+    "sidecars": []
   }
 }
