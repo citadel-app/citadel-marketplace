@@ -13,8 +13,20 @@
         "@citadel-app/base:fs.writeFile",
         "@citadel-app/base:fs.createDirectory"
       ],
-      "capabilities": [],
-      "releasedAt": "2026-03-30T21:27:23Z",
+      "capabilities": [
+        "tts.start",
+        "tts.stop",
+        "tts.status",
+        "models.check",
+        "models.download"
+      ],
+      "sidecars": [
+        {
+          "id": "tts-sidecar",
+          "type": "docker"
+        }
+      ],
+      "releasedAt": "2026-03-31T21:36:46Z",
       "changelog": "Automated release from CI",
       "description": "PDF viewer with highlighting and TTS support for Citadel.",
       "citadelVersionRange": ">=1.2.1"
