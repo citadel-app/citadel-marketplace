@@ -23,6 +23,18 @@
       "@citadel-app/base:fs.writeFile",
       "@citadel-app/base:fs.createDirectory"
     ],
-    "capabilities": []
+    "capabilities": [
+      "tts.start",
+      "tts.stop",
+      "tts.status",
+      "models.check",
+      "models.download"
+    ],
+    "sidecars": [
+      {
+        "id": "tts-sidecar",
+        "type": "docker"
+      }
+    ]
   }
 }
