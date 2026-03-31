@@ -44,7 +44,8 @@
         "@citadel-app/base:db.updateFeedStatus"
       ],
       "capabilities": [],
-      "releasedAt": "2026-03-30T21:27:23Z",
+      "sidecars": [],
+      "releasedAt": "2026-03-31T21:36:59Z",
       "changelog": "Automated release from CI",
       "description": "YouTube Plugin for Citadel App",
       "citadelVersionRange": ">=1.2.1"
