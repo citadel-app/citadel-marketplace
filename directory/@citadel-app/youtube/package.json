@@ -1,6 +1,6 @@
 {
   "name": "@citadel-app/youtube",
-  "version": "1.1.5",
+  "version": "1.2.1",
   "description": "YouTube Plugin for Citadel App",
   "author": "Citadel Team",
   "license": "MIT",
@@ -9,14 +9,14 @@
     "url": "git+https://github.com/citadel-app/citadel-plugin-youtube.git"
   },
   "engines": {
-    "citadel": ">=1.1.5"
+    "citadel": ">=1.2.1"
   },
   "citadel": {
     "title": "YouTube Scrolls",
     "icon": "assets/icon.png",
     "authorUrl": "https://github.com/citadel-app",
     "verified": true,
-    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.1.5/citadel-plugin-youtube.zip",
+    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.2.1/citadel-plugin-youtube.zip",
     "permissions": [
       "@citadel-app/base:fs.readFile",
       "@citadel-app/base:fs.writeFile",
