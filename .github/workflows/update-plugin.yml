@@ -67,9 +67,9 @@ jobs:
           REPO_URL="${{ github.event.client_payload.repo_url }}"
           NAME="${{ github.event.client_payload.plugin_id }}"
           CITADEL_VERSION_RANGE="${{ github.event.client_payload.citadel_version_range || '>=1.1.0' }}"
-          PERMISSIONS='${{ toJson(github.event.client_payload.permissions) }}'
-          CAPABILITIES='${{ toJson(github.event.client_payload.capabilities) }}'
-          SIDECARS='${{ toJson(github.event.client_payload.sidecars) }}'
+          PERMISSIONS='${{ toJson(github.event.client_payload.features.permissions) }}'
+          CAPABILITIES='${{ toJson(github.event.client_payload.features.capabilities) }}'
+          SIDECARS='${{ toJson(github.event.client_payload.features.sidecars) }}'
 
           PKG_PATH="directory/$PLUGIN_ID/package.json"
 
