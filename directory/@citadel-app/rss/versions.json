@@ -44,7 +44,8 @@
         "@citadel-app/base:db.updateFeedStatus"
       ],
       "capabilities": [],
-      "releasedAt": "2026-03-30T21:27:31Z",
+      "sidecars": [],
+      "releasedAt": "2026-03-31T21:36:44Z",
       "changelog": "Automated release from CI",
       "description": "Native RSS feed reading and aggregation for Citadel.",
       "citadelVersionRange": ">=1.2.1"
