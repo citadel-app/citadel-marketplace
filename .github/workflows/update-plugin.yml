@@ -69,6 +69,7 @@ jobs:
           CITADEL_VERSION_RANGE="${{ github.event.client_payload.citadel_version_range || '>=1.1.0' }}"
           PERMISSIONS='${{ toJson(github.event.client_payload.permissions) }}'
           CAPABILITIES='${{ toJson(github.event.client_payload.capabilities) }}'
+          SIDECARS='${{ toJson(github.event.client_payload.sidecars) }}'
 
           PKG_PATH="directory/$PLUGIN_ID/package.json"
 
@@ -77,8 +78,8 @@ jobs:
              --arg title "$TITLE" --arg desc "$DESC" \
              --arg author "$AUTHOR" --arg repo "$REPO_URL" \
              --arg name "$NAME" --arg cvr "$CITADEL_VERSION_RANGE" \
-             --argjson perms "${PERMISSIONS:-[]}" --argjson caps "${CAPABILITIES:-[]}" \
-             '.name = $name | .version = $ver | .citadel.bundleUrl = $url | .citadel.title = $title | .description = $desc | .author = $author | .repository.url = $repo | .engines.citadel = $cvr | .citadel.permissions = $perms | .citadel.capabilities = $caps' \
+             --argjson perms "${PERMISSIONS:-[]}" --argjson caps "${CAPABILITIES:-[]}" --argjson sc "${SIDECARS:-[]}" \
+             '.name = $name | .version = $ver | .citadel.bundleUrl = $url | .citadel.title = $title | .description = $desc | .author = $author | .repository.url = $repo | .engines.citadel = $cvr | .citadel.permissions = $perms | .citadel.capabilities = $caps | .citadel.sidecars = $sc' \
              "$PKG_PATH" > temp.json && mv temp.json "$PKG_PATH"
 
       - name: Update README.md
