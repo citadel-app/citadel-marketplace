@@ -1,6 +1,5 @@
 {
   "name": "@citadel-app/code",
-  "version": "1.1.5",
   "version": "1.2.1",
   "description": "Code editing, LSP, LaTeX compilation, and interactive REPL for Citadel.",
   "author": "Citadel Team",
@@ -25,6 +24,30 @@
       "@citadel-app/base:fs.writeFile",
       "@citadel-app/base:fs.createDirectory"
     ],
-    "capabilities": []
+    "capabilities": [
+      "latex.check",
+      "latex.compile",
+      "execution.start",
+      "execution.stop",
+      "execution.status",
+      "repl.startSession",
+      "repl.stopSession",
+      "repl.listContainers",
+      "repl.stopContainer",
+      "repl.removeContainer",
+      "repl.checkSession",
+      "repl.sendInput",
+      "code.getLspPort"
+    ],
+    "sidecars": [
+      {
+        "id": "execution-sidecar",
+        "type": "docker"
+      },
+      {
+        "id": "repl-sidecar",
+        "type": "docker"
+      }
+    ]
   }
 }
