@@ -56,7 +56,7 @@
           "type": "docker"
         }
       ],
-      "releasedAt": "2026-03-31T23:32:11Z",
+      "releasedAt": "2026-04-01T00:15:35Z",
       "changelog": "Automated release from CI",
       "description": "PDF viewer with highlighting and TTS support for Citadel.",
       "citadelVersionRange": ">=1.2.3"
