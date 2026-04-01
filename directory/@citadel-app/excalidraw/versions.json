@@ -1,5 +1,5 @@
 {
-  "latest": "1.2.1",
+  "latest": "1.2.3",
   "versions": {
     "1.2.1": {
       "title": "Whiteboard",
@@ -19,6 +19,25 @@
       "changelog": "Automated release from CI",
       "description": "Whiteboard and diagramming with Excalidraw for Citadel.",
       "citadelVersionRange": ">=1.2.1"
+    },
+    "1.2.3": {
+      "title": "Whiteboard",
+      "icon": "assets/icon.png",
+      "authorUrl": "https://github.com/citadel-app",
+      "verified": true,
+      "bundleUrl": "https://github.com/citadel-app/citadel-plugin-excalidraw/releases/download/v1.2.3/citadel-plugin-excalidraw.zip",
+      "permissions": [
+        "@citadel-app/base:plugins.getPluginPath",
+        "@citadel-app/base:fs.readFile",
+        "@citadel-app/base:fs.exists",
+        "@citadel-app/base:fs.writeFile"
+      ],
+      "capabilities": [],
+      "sidecars": [],
+      "releasedAt": "2026-04-01T00:15:38Z",
+      "changelog": "Automated release from CI",
+      "description": "Whiteboard and diagramming with Excalidraw for Citadel.",
+      "citadelVersionRange": ">=1.2.3"
     }
   }
 }

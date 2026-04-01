@@ -1,6 +1,6 @@
 {
   "name": "@citadel-app/excalidraw",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "Whiteboard and diagramming with Excalidraw for Citadel.",
   "author": "Citadel Team",
   "license": "MIT",
@@ -9,14 +9,14 @@
     "url": "git+https://github.com/citadel-app/citadel-plugin-excalidraw.git"
   },
   "engines": {
-    "citadel": ">=1.2.1"
+    "citadel": ">=1.2.3"
   },
   "citadel": {
     "title": "Whiteboard",
     "icon": "assets/icon.png",
     "authorUrl": "https://github.com/citadel-app",
     "verified": true,
-    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-excalidraw/releases/download/v1.2.1/citadel-plugin-excalidraw.zip",
+    "bundleUrl": "https://github.com/citadel-app/citadel-plugin-excalidraw/releases/download/v1.2.3/citadel-plugin-excalidraw.zip",
     "permissions": [
       "@citadel-app/base:plugins.getPluginPath",
       "@citadel-app/base:fs.readFile",
