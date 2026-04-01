@@ -1,5 +1,5 @@
 {
-  "latest": "1.2.1",
+  "latest": "1.2.3",
   "versions": {
     "1.1.5": {
       "title": "YouTube Scrolls",
@@ -49,6 +49,31 @@
       "changelog": "Automated release from CI",
       "description": "YouTube Plugin for Citadel App",
       "citadelVersionRange": ">=1.2.1"
+    },
+    "1.2.3": {
+      "title": "YouTube Scrolls",
+      "icon": "assets/icon.png",
+      "authorUrl": "https://github.com/citadel-app",
+      "verified": true,
+      "bundleUrl": "https://github.com/citadel-app/citadel-plugin-youtube/releases/download/v1.2.3/citadel-plugin-youtube.zip",
+      "permissions": [
+        "@citadel-app/base:fs.readFile",
+        "@citadel-app/base:fs.writeFile",
+        "@citadel-app/base:fs.exists",
+        "@citadel-app/base:fs.createDirectory",
+        "@citadel-app/base:app.updateSetting",
+        "@citadel-app/base:net.fetch",
+        "@citadel-app/base:db.getFeedItems",
+        "@citadel-app/base:db.saveFeedItems",
+        "@citadel-app/base:db.getFeedStatus",
+        "@citadel-app/base:db.updateFeedStatus"
+      ],
+      "capabilities": [],
+      "sidecars": [],
+      "releasedAt": "2026-04-01T00:15:38Z",
+      "changelog": "Automated release from CI",
+      "description": "YouTube Plugin for Citadel App",
+      "citadelVersionRange": ">=1.2.3"
     }
   }
 }
